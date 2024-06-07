@@ -183,7 +183,7 @@ const SettingsPage = ({
           <Link href={"https://github.com/Djsensei1/Aniora"}>
             <FaGithub /> Github
           </Link>
-          <Link href={"/https://chastedjaziri.ccdjamilla.me/"}>
+          <Link href={"https://chastedjaziri.ccdjamilla.me/"}>
             <FaGlobe /> Created by Chaste Djaziri
           </Link>
         </div>
