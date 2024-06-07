@@ -1,6 +1,6 @@
 export const navigatorShare = async ({ text, url }: any) => {
   const shareData = {
-    title: "RiveStream",
+    title: "Aniora",
     text: text,
     url: url,
   };

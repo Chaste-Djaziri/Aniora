@@ -22,7 +22,7 @@ const SignupPage = () => {
           src="/images/logo.svg"
           alt="logo"
           data-tooltip-id="tooltip"
-          data-tooltip-content="Rive"
+          data-tooltip-content="Aniora"
         />
         <p>Your Personal Streaming Oasis</p>
       </div>
@@ -58,7 +58,7 @@ const SignupPage = () => {
           </>
         </div>
         <h4>
-          Already a Rive member!{" "}
+          Already an Aniora member!{" "}
           <Link href="/login" className={styles.highlight}>
             Login
           </Link>
