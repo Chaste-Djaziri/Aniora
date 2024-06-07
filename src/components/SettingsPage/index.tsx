@@ -180,11 +180,11 @@ const SettingsPage = ({
         </div>
         <h1>Links</h1>
         <div className={styles.group}>
-          <Link href={"https://github.com/Developabile/rive-next"}>
+          <Link href={"https://github.com/Djsensei1/Aniora"}>
             <FaGithub /> Github
           </Link>
-          <Link href={"/"}>
-            <FaGlobe /> Website
+          <Link href={"/https://chastedjaziri.ccdjamilla.me/"}>
+            <FaGlobe /> Created by Chaste Djaziri
           </Link>
         </div>
       </div>
