@@ -108,7 +108,7 @@ const Layout = ({ children }: any) => {
       <div
         className={`${styles.background} ${mode === "dark" && "dark"} ${mode === "light" && "light"}`}
       >
-        <Navbar />
+        {/* <Navbar /> */}
         <motion.div
           initial={{ x: -300, opacity: 0 }}
           animate={{ x: 0, opacity: 1 }}

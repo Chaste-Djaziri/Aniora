@@ -53,7 +53,7 @@ const Watch = () => {
       localStorage.getItem("RiveStreamEmbedMode") !== null
     )
       setEmbedMode(
-        JSON.parse(localStorage.getItem("RiveStreamEmbedMode") || "false"),
+        JSON.parse(localStorage.getItem("RiveStreamEmbedMode") || "false")
       );
     else setEmbedMode(false);
     const latestAgg: any = localStorage.getItem("RiveStreamLatestAgg");
@@ -76,8 +76,7 @@ const Watch = () => {
       setseasonData(seasonData);
       seasonData?.episodes?.length > 0 &&
         setMaxEpisodes(
-          seasonData?.episodes[seasonData?.episodes?.length - 1]
-            ?.episode_number,
+          seasonData?.episodes[seasonData?.episodes?.length - 1]?.episode_number
         );
       setMinEpisodes(seasonData?.episodes[0]?.episode_number);
       if (parseInt(episode) >= maxEpisodes - 1) {
@@ -136,7 +135,7 @@ const Watch = () => {
           <a target="_blank" href="https://brave.com/">
             Brave Browser{" "}
           </a>
-        </div>,
+        </div>
       );
 
       toast.info(
@@ -163,7 +162,7 @@ const Watch = () => {
           >
             The Source{" "}
           </a>
-        </div>,
+        </div>
       );
     }
     // window.addEventListener("keydown", (event) => {
@@ -186,7 +185,7 @@ const Watch = () => {
               name: ele,
               status: "available",
             };
-          }),
+          })
         );
         const res: any = { sources: [], captions: [] };
         // setNonEmbedSources([]);
@@ -201,7 +200,7 @@ const Watch = () => {
                 };
               }
               return provider;
-            }),
+            })
           );
           try {
             const tempRes: any = await axiosFetch({
@@ -230,7 +229,7 @@ const Watch = () => {
                   };
                 }
                 return provider;
-              }),
+              })
             );
             if (tempRes?.data?.sources?.length > 0) {
               setNonEmbedSources((prev: any) => {
@@ -259,7 +258,7 @@ const Watch = () => {
                   };
                 }
                 return provider;
-              }),
+              })
             );
           }
         }
@@ -280,7 +279,7 @@ const Watch = () => {
 
       if (season !== null && episode !== null)
         toast.info(
-          "It may take 30s-1min to load media for an episode. Wait for the player to load",
+          "It may take 30s-1min to load media for an episode. Wait for the player to load"
         );
 
       fetch();
@@ -292,35 +291,35 @@ const Watch = () => {
     // setEpisode(parseInt(episode)+1);
     if (episode > minEpisodes)
       push(
-        `/watch?type=tv&id=${id}&season=${season}&episode=${parseInt(episode) - 1}`,
+        `/watch?type=tv&id=${id}&season=${season}&episode=${parseInt(episode) - 1}`
       );
   }
   function handleForward() {
     // setEpisode(parseInt(episode)+1);
     if (episode < maxEpisodes)
       push(
-        `/watch?type=tv&id=${id}&season=${season}&episode=${parseInt(episode) + 1}`,
+        `/watch?type=tv&id=${id}&season=${season}&episode=${parseInt(episode) + 1}`
       );
     else if (parseInt(season) + 1 <= maxSeason)
       push(
-        `/watch?type=tv&id=${id}&season=${parseInt(season) + 1}&episode=${nextSeasonMinEpisodes}`,
+        `/watch?type=tv&id=${id}&season=${parseInt(season) + 1}&episode=${nextSeasonMinEpisodes}`
       );
   }
 
-  const STREAM_URL_AGG = process.env.NEXT_PUBLIC_STREAM_URL_AGG;
-  const STREAM_URL_VID = process.env.NEXT_PUBLIC_STREAM_URL_VID;
-  const STREAM_URL_PRO = process.env.NEXT_PUBLIC_STREAM_URL_PRO;
-  const STREAM_URL_EMB = process.env.NEXT_PUBLIC_STREAM_URL_EMB;
-  const STREAM_URL_MULTI = process.env.NEXT_PUBLIC_STREAM_URL_MULTI;
-  const STREAM_URL_SUP = process.env.NEXT_PUBLIC_STREAM_URL_SUP;
-  const STREAM_URL_CLUB = process.env.NEXT_PUBLIC_STREAM_URL_CLUB;
-  const STREAM_URL_SMASH = process.env.NEXT_PUBLIC_STREAM_URL_SMASH;
-  const STREAM_URL_ONE = process.env.NEXT_PUBLIC_STREAM_URL_ONE;
-  const STREAM_URL_ANY = process.env.NEXT_PUBLIC_STREAM_URL_ANY;
-  const STREAM_URL_PRIME = process.env.NEXT_PUBLIC_STREAM_URL_PRIME;
-  const STREAM_URL_RGS = process.env.NEXT_PUBLIC_STREAM_URL_RGS;
-  const STREAM_URL_FRE = process.env.NEXT_PUBLIC_STREAM_URL_FRE;
-  const STREAM_URL_POR = process.env.NEXT_PUBLIC_STREAM_URL_POR;
+  // const STREAM_URL_AGG = process.env.NEXT_PUBLIC_STREAM_URL_AGG;
+  // const STREAM_URL_VID = process.env.NEXT_PUBLIC_STREAM_URL_VID;
+  // const STREAM_URL_PRO = process.env.NEXT_PUBLIC_STREAM_URL_PRO;
+  // const STREAM_URL_EMB = process.env.NEXT_PUBLIC_STREAM_URL_EMB;
+  // const STREAM_URL_MULTI = process.env.NEXT_PUBLIC_STREAM_URL_MULTI;
+  // const STREAM_URL_SUP = process.env.NEXT_PUBLIC_STREAM_URL_SUP;
+  // const STREAM_URL_CLUB = process.env.NEXT_PUBLIC_STREAM_URL_CLUB;
+  // const STREAM_URL_SMASH = process.env.NEXT_PUBLIC_STREAM_URL_SMASH;
+  // const STREAM_URL_ONE = process.env.NEXT_PUBLIC_STREAM_URL_ONE;
+  // const STREAM_URL_ANY = process.env.NEXT_PUBLIC_STREAM_URL_ANY;
+  // const STREAM_URL_PRIME = process.env.NEXT_PUBLIC_STREAM_URL_PRIME;
+  // const STREAM_URL_RGS = process.env.NEXT_PUBLIC_STREAM_URL_RGS;
+  // const STREAM_URL_FRE = process.env.NEXT_PUBLIC_STREAM_URL_FRE;
+  // const STREAM_URL_POR = process.env.NEXT_PUBLIC_STREAM_URL_POR;
   const STREAM_URL_WEB = process.env.NEXT_PUBLIC_STREAM_URL_WEB;
 
   return (
@@ -411,7 +410,7 @@ const Watch = () => {
             setWatchDetails={setWatchDetails}
           />
         )}
-        <div className={styles.watchSelects}>
+        {/* <div className={styles.watchSelects}>
           {embedMode === true && (
             <select
               name="source"
@@ -484,7 +483,7 @@ const Watch = () => {
             <option value="true">Embed Mode</option>
             <option value="false">NON Embed Mode (AD-free)</option>
           </select>
-        </div>
+        </div> */}
         <div className={`${styles.loader} skeleton`}>
           {embedMode === false && id !== undefined && id !== null ? (
             <div className={styles.videoProviders}>
@@ -531,7 +530,7 @@ const Watch = () => {
             className={styles.videoPlayer}
           />
         )}
-        {source === "AGG" && id !== "" && id !== null && embedMode === true ? (
+        {/* {source === "AGG" && id !== "" && id !== null && embedMode === true ? (
           <iframe
             scrolling="no"
             src={
@@ -748,7 +747,7 @@ const Watch = () => {
             allow="accelerometer; autoplay; encrypted-media; gyroscope;"
             referrerPolicy="origin"
           ></iframe>
-        ) : null}
+        ) : null} */}
 
         {source === "WEB" && id !== "" && id !== null && embedMode === true ? (
           <iframe
@@ -767,7 +766,7 @@ const Watch = () => {
           ></iframe>
         ) : null}
 
-        {source === "ADF" && id !== "" && id !== null && embedMode === true ? (
+        {/* {source === "ADF" && id !== "" && id !== null && embedMode === true ? (
           <iframe
             scrolling="no"
             src={
@@ -780,7 +779,7 @@ const Watch = () => {
             allow="accelerometer; autoplay; encrypted-media; gyroscope;"
             referrerPolicy="origin"
           ></iframe>
-        ) : null}
+        ) : null} */}
       </div>
     </>
   );

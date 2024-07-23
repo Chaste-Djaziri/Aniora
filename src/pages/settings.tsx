@@ -1,5 +1,9 @@
+import Navbar from "@/components/Navbar";
+
 const Settings = () => {
-  return <></>;
+  return <>
+    <Navbar />
+  </>;
 };
 
 export default Settings;

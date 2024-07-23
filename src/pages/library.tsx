@@ -15,6 +15,7 @@ import { BsFillBookmarkXFill } from "react-icons/bs";
 import { onAuthStateChanged } from "firebase/auth";
 import { auth } from "@/Utils/firebase";
 import NProgress from "nprogress";
+import Navbar from "@/components/Navbar";
 // import MoviePoster from '@/components/MoviePoster';
 
 function capitalizeFirstLetter(string: string) {
@@ -121,69 +122,72 @@ const Library = () => {
   console.log({ ids });
 
   return (
-    <div className={styles.MoviePage}>
-      {/* if login, "hello username" */}
-      {/* else, "Login to sunc to cloud" */}
-      <h1>Library</h1>
-      <div className={styles.category}>
-        <p
-          className={`${category === "watchlist" ? styles.active : styles.inactive}`}
-          onClick={() => setCategory("watchlist")}
-        >
-          Watchlist
-        </p>
-        <p
-          className={`${category === "continueWatching" ? styles.active : styles.inactive}`}
-          onClick={() => setCategory("continueWatching")}
-        >
-          Continue Watching
-        </p>
-      </div>
-      <div className={styles.category}>
-        <p
-          className={`${subCategory === "movie" ? styles.active : styles.inactive}`}
-          onClick={() => setSubCategory("movie")}
-        >
-          Movie
-        </p>
-        <p
-          className={`${subCategory === "tv" ? styles.active : styles.inactive}`}
-          onClick={() => setSubCategory("tv")}
-        >
-          TV Shows
-        </p>
-      </div>
+    <div>
+      <Navbar />
+      <div className={styles.MoviePage}>
+        {/* if login, "hello username" */}
+        {/* else, "Login to sunc to cloud" */}
+        <h1>Library</h1>
+        <div className={styles.category}>
+          <p
+            className={`${category === "watchlist" ? styles.active : styles.inactive}`}
+            onClick={() => setCategory("watchlist")}
+          >
+            Watchlist
+          </p>
+          <p
+            className={`${category === "continueWatching" ? styles.active : styles.inactive}`}
+            onClick={() => setCategory("continueWatching")}
+          >
+            Continue Watching
+          </p>
+        </div>
+        <div className={styles.category}>
+          <p
+            className={`${subCategory === "movie" ? styles.active : styles.inactive}`}
+            onClick={() => setSubCategory("movie")}
+          >
+            Movie
+          </p>
+          <p
+            className={`${subCategory === "tv" ? styles.active : styles.inactive}`}
+            onClick={() => setSubCategory("tv")}
+          >
+            TV Shows
+          </p>
+        </div>
 
-      <div className={styles.movieList}>
-        {data?.length !== 0 && ids?.length !== 0 && ids !== undefined ? (
-          data?.map((ele: any) => {
-            if (category === "watchlist") {
-              return (
-                <div className={styles.watchlistItems}>
-                  <MovieCardSmall data={ele} media_type={subCategory} />
-                  <BsFillBookmarkXFill
-                    className={styles.bookmarkIcon}
-                    data-tooltip-id="tooltip"
-                    data-tooltip-content="Remove from Watchlist"
-                    onClick={() =>
-                      handleWatchlistremove({ type: subCategory, id: ele?.id })
-                    }
-                  />
-                </div>
-              );
-            } else
-              return <MovieCardSmall data={ele} media_type={subCategory} />;
-          })
-        ) : ids?.length === 0 || ids === undefined ? (
-          <p>List Is Empty</p>
-        ) : (
-          dummyList.map((ele) => <Skeleton className={styles.loading} />)
-        )}
-        {/* {
-          (data?.length === 0 || ids?.length === 0) && dummyList.map((ele) => (
-            <Skeleton className={styles.loading} />
-          ))
-        } */}
+        <div className={styles.movieList}>
+          {data?.length !== 0 && ids?.length !== 0 && ids !== undefined ? (
+            data?.map((ele: any) => {
+              if (category === "watchlist") {
+                return (
+                  <div className={styles.watchlistItems}>
+                    <MovieCardSmall data={ele} media_type={subCategory} />
+                    <BsFillBookmarkXFill
+                      className={styles.bookmarkIcon}
+                      data-tooltip-id="tooltip"
+                      data-tooltip-content="Remove from Watchlist"
+                      onClick={() =>
+                        handleWatchlistremove({ type: subCategory, id: ele?.id })
+                      }
+                    />
+                  </div>
+                );
+              } else
+                return <MovieCardSmall data={ele} media_type={subCategory} />;
+            })
+          ) : ids?.length === 0 || ids === undefined ? (
+            <p>List Is Empty</p>
+          ) : (
+            dummyList.map((ele) => <Skeleton className={styles.loading} />)
+          )}
+          {/* {
+            (data?.length === 0 || ids?.length === 0) && dummyList.map((ele) => (
+              <Skeleton className={styles.loading} />
+            ))
+          } */}
+        </div>
       </div>
     </div>
   );

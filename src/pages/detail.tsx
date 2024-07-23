@@ -23,6 +23,7 @@ import { onAuthStateChanged } from "firebase/auth";
 import { auth } from "@/Utils/firebase";
 import { toast } from "sonner";
 import Head from "next/head";
+import Navbar from "@/components/Navbar";
 
 const DetailPage = () => {
   const params = useSearchParams();
@@ -130,6 +131,7 @@ const DetailPage = () => {
     // carousel
     // detail
     <>
+    <Navbar />
       <Head>
         <title>
           Rive | Detail{" "}
