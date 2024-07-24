@@ -326,7 +326,7 @@ const Watch = () => {
     <>
       <Head>
         <title>
-          Rive | Watch{" "}
+          Aniora| Watch{" "}
           {id !== undefined && id !== null
             ? `| ${data?.name || data?.title || id}`
             : null}{" "}
