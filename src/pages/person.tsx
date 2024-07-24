@@ -63,7 +63,7 @@ const PersonPage = () => {
     <>
       <Head>
         <title>
-          Rive | Person{" "}
+          Aniora | Person{" "}
           {id !== undefined && id !== null
             ? `| ${data?.name || data?.title || id}`
             : null}

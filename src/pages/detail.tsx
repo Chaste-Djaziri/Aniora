@@ -52,8 +52,8 @@ const DetailPage = () => {
         const Videos = await axiosFetch({ requestID: `${type}Videos`, id: id });
         setTrailer(
           Videos?.results?.find(
-            (ele: any) => ele.type === "Trailer" && ele.official === true,
-          ),
+            (ele: any) => ele.type === "Trailer" && ele.official === true
+          )
         );
         const response = await axiosFetch({
           requestID: `${type}Images`,
@@ -102,11 +102,11 @@ const DetailPage = () => {
       if (data !== undefined && data !== null) {
         if (user !== undefined && user !== null)
           setBookmarked(
-            await checkBookmarks({ userId: user, type: type, id: data.id }),
+            await checkBookmarks({ userId: user, type: type, id: data.id })
           );
         else
           setBookmarked(
-            await checkBookmarks({ userId: null, type: type, id: data.id }),
+            await checkBookmarks({ userId: null, type: type, id: data.id })
           );
         // console.log(checkBookmarks({ userId: user, type: type, id: data.id }));
       }
@@ -131,10 +131,10 @@ const DetailPage = () => {
     // carousel
     // detail
     <>
-    <Navbar />
+      <Navbar />
       <Head>
         <title>
-          Rive | Detail{" "}
+          Aniora | Detail{" "}
           {id !== undefined && id !== null
             ? `| ${data?.name || data?.title || id}`
             : null}

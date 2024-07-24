@@ -4,8 +4,8 @@
   "display": "standalone",
   "scope": "/",
   "start_url": "/",
-  "name": "Rive",
-  "short_name": "Rive",
+  "name": "Aniora",
+  "short_name": "Aniora",
   "description": "Your Personal Streaming Oasis.",
   "icons": [
     {

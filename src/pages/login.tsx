@@ -29,7 +29,7 @@ const LoginPage = () => {
             src="/images/logo.svg"
             alt="logo"
             data-tooltip-id="tooltip"
-            data-tooltip-content="Rive"
+            data-tooltip-content="Aniora"
           />
           <p>Your Personal Movie Streaming Oasis</p>
         </div>
