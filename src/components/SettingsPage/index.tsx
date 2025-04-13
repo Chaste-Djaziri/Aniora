@@ -382,13 +382,13 @@ const SettingsPage = ({
         </div>
         <h1>Links</h1>
         <div className={styles.group}>
-          <Link href={"https://github.com/Djsensei1/Aniora"}>
+          <Link href={"https://github.com/chaste-djaziri"}>
             <FaGithub /> Github
           </Link>
           <Link href={"https://discord.gg/6xJmJja8fV"}>
             <FaDiscord /> Discord
           </Link>
-          <Link href={"https://chastedjaziri.ccdjamilla.me/"}>
+          <Link href={"https://chastedjaziri.micorp.pro/"}>
             <FaGlobe /> Created by Chaste Djaziri
           </Link>
         </div>

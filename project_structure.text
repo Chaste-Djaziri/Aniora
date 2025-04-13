@@ -1,0 +1,185 @@
+- .env
+- .github
+  - dependabot.yml
+  - labeler-config.yml
+  - PULL_REQUEST_TEMPLATE.md
+  - workflows
+    - weekly_update.yml
+- .gitignore
+- .husky
+  - pre-commit
+  - _
+    - .gitignore
+    - applypatch-msg
+    - commit-msg
+    - h
+    - husky.sh
+    - post-applypatch
+    - post-checkout
+    - post-commit
+    - post-merge
+    - post-rewrite
+    - pre-applypatch
+    - pre-auto-gc
+    - pre-commit
+    - pre-merge-commit
+    - pre-push
+    - pre-rebase
+    - prepare-commit-msg
+- .prettierignore
+- ABOUT_ENV.md
+- CODEOWNERS
+- CODE_OF_CONDUCT.md
+- CONTRIBUTING.md
+- Domains.md
+- LICENSE
+- next-env.d.ts
+- next.config.mjs
+- package-lock.json
+- package.json
+- public
+  - fallback-development.js
+  - icons
+    - icon-192x192.png
+    - icon-256x256.png
+    - icon-384x384.png
+    - icon-512x512.png
+  - images
+    - logo.svg
+    - logo512.png
+    - logo512.svg
+    - logoImg.jpg
+  - manifest.json
+  - robots.txt
+  - sw.js
+  - sw.js.map
+  - workbox-e43f5367.js
+  - workbox-e43f5367.js.map
+- README.md
+- screenshots
+  - ipad
+    - iPad-1711133919085.jpeg
+    - iPad-1711133952668.jpeg
+    - iPad-1711134001134.jpeg
+    - iPad-1711134203174.jpeg
+    - iPad-1711134263026.jpeg
+    - iPad-1711134390880.jpeg
+  - iphone
+    - iPhone SE-1711133892195.jpeg
+    - iPhone SE-1711134064713.jpeg
+    - iPhone SE-1711134203201.jpeg
+    - iPhone SE-1711134412110.jpeg
+  - macbook
+    - MacBook Pro-1711134020120.jpeg
+    - MacBook Pro-1711134203319.jpeg
+    - MacBook Pro-1711134313758.jpeg
+    - MacBook Pro-1711134363365.jpeg
+  - Screenshot 2024-04-01 230721.png
+- SECURITY.md
+- src
+  - assets
+    - collection_ids.json
+    - images
+      - A_professional_monochromatic_abstract_icon_with.jpg
+      - logo.png
+      - logo.svg
+      - logoImg.jpg
+  - components
+    - Artplayer
+      - index.tsx
+    - Carousel
+      - index.tsx
+      - style.module.scss
+    - CategorywisePage
+      - index.tsx
+      - style.module.scss
+    - Filter
+      - index.tsx
+      - style.module.scss
+    - HomeHero
+      - index.tsx
+      - style.module.scss
+    - HomeListAll
+      - index.tsx
+      - style.module.scss
+    - Layout
+      - index.tsx
+      - style.module.scss
+    - MetaDetails
+      - index.tsx
+      - style.module.scss
+    - MovieCardLarge
+      - index.tsx
+      - style.module.scss
+    - MovieCardSmall
+      - index.tsx
+      - style.module.scss
+    - MoviePoster
+      - index.tsx
+      - style.module.scss
+    - Navbar
+      - index.tsx
+      - style.module.scss
+    - SettingsPage
+      - index.tsx
+    - WatchDetails
+      - index.tsx
+      - style.module.scss
+  - components.zip
+  - pages
+    - 404.tsx
+    - animation.tsx
+    - anime.tsx
+    - api
+      - backendfetch.ts
+    - collections
+      - index.tsx
+      - [id].tsx
+    - detail.tsx
+    - disclaimer.tsx
+    - downloads.tsx
+    - index.tsx
+    - kdrama.tsx
+    - library.tsx
+    - login.tsx
+    - movie.tsx
+    - person.tsx
+    - recommendation.tsx
+    - search.tsx
+    - settings.tsx
+    - signup.tsx
+    - tv.tsx
+    - watch.tsx
+    - _app.tsx
+    - _document.tsx
+    - _offline.tsx
+  - pages.zip
+  - styles
+    - checkbox.scss
+    - collections.module.scss
+    - Detail.module.scss
+    - globals.scss
+    - Home.module.scss
+    - Library.module.scss
+    - nprogress.scss
+    - Recommendation.module.scss
+    - Search.module.scss
+    - Settings.module.scss
+    - Watch.module.scss
+  - styles.zip
+  - Utils
+    - axios.tsx
+    - bookmark.tsx
+    - cache.tsx
+    - clientCache.tsx
+    - continueWatching.tsx
+    - crypt.tsx
+    - fetch.tsx
+    - fetchBackend.tsx
+    - firebase.tsx
+    - firebaseUser.tsx
+    - randomdata.tsx
+    - settings.tsx
+    - share.tsx
+- src.zip
+- tsconfig.json
