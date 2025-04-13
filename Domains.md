@@ -1,9 +1,9 @@
 # Domains
 
-| Domain                       | Status |
-| ---------------------------- | ------ |
-| https://aniora.ccdjamilla.me | ✅     |
-| https://aniora.netlify.app   | ✅     |
+| Domain                     | Status |
+| -------------------------- | ------ |
+| https://aniora.micorp.pro  | ✅     |
+| https://aniora.netlify.app | ✅     |
 
 **Legends**:
 

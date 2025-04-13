@@ -1,3 +1,11 @@
-User-Agent: *
+# www.robotstxt.org/
+
+User-agent: *
 Allow: /
 Disallow: /private/
+
+# Sitemap location
+Sitemap: https://micorp.pro/sitemap.xml
+
+# Crawl delay to prevent server overload
+Crawl-delay: 10
