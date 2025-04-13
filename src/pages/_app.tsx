@@ -12,6 +12,7 @@ import NProgress from "nprogress";
 import "@/styles/nprogress.scss";
 import "react-loading-skeleton/dist/skeleton.css";
 import { GoogleAnalytics } from "@next/third-parties/google";
+import { Analytics } from "@vercel/analytics/react";
 
 export default function App({ Component, pageProps }: any) {
   const [isLoading, setIsLoading] = useState(false);
@@ -167,6 +168,7 @@ export default function App({ Component, pageProps }: any) {
         <meta http-equiv="content-language" content="en-us" />
       </Head>
       <Layout>
+        <Analytics />
         <Toaster
           toastOptions={{
             className: "sooner-toast-desktop",
