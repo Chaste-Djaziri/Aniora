@@ -1,12 +1,8 @@
 export const getSettings = () => {
-  const values: any = localStorage.getItem("RiveStreamSettings");
-  return JSON.parse(values);
+  const values = localStorage.getItem("RivestreamSettings");
+  return values ? JSON.parse(values) : {};
 };
 
 export const setSettings = ({ values }: any) => {
-  // var values = getSettings() || {
-  //   theme: "", mode: "", ascent_color: ""
-  // };
-  // values[type] = value;
-  localStorage.setItem("RiveStreamSettings", JSON.stringify(values));
+  localStorage.setItem("RivestreamSettings", JSON.stringify(values));
 };

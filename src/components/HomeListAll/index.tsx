@@ -600,7 +600,6 @@ const HomeListAll = () => {
           ))}
       </div>
 
-
       {/* <h1 ref={latestAnimationRef}>
         Latest Animation
         <div>
@@ -667,7 +666,6 @@ const HomeListAll = () => {
             <Skeleton className={styles.loading} key={i} />
           ))}
       </div> */}
-
 
       <h1 ref={popularMovieRef}>
         Popular Movies

@@ -226,7 +226,9 @@ const Collections = ({ categoryType }: any) => {
           forcePage={currentPage - 1}
           pageCount={totalpages}
           breakLabel=" ... "
-          previousLabel={<AiFillLeftCircle className={styles.paginationIcons} />}
+          previousLabel={
+            <AiFillLeftCircle className={styles.paginationIcons} />
+          }
           nextLabel={<AiFillRightCircle className={styles.paginationIcons} />}
         />
       </div>

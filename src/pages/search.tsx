@@ -135,7 +135,8 @@ const SearchPage = ({ categoryType }: any) => {
         </div>
         {query.length > 2 ? (
           <h1>
-            showing result for <span className={styles.serachQuery}>{query}</span>
+            showing result for{" "}
+            <span className={styles.serachQuery}>{query}</span>
           </h1>
         ) : (
           <h1>
@@ -155,7 +156,9 @@ const SearchPage = ({ categoryType }: any) => {
                 />
               );
             })}
-          {query.length > 2 && data?.length === 0 ? <h1>No Data Found</h1> : null}
+          {query.length > 2 && data?.length === 0 ? (
+            <h1>No Data Found</h1>
+          ) : null}
           {query.length > 2 && data === undefined
             ? dummyList.map((ele) => <Skeleton className={styles.loading} />)
             : null}
@@ -187,7 +190,9 @@ const SearchPage = ({ categoryType }: any) => {
           forcePage={currentPage - 1}
           pageCount={totalpages}
           breakLabel=" ... "
-          previousLabel={<AiFillLeftCircle className={styles.paginationIcons} />}
+          previousLabel={
+            <AiFillLeftCircle className={styles.paginationIcons} />
+          }
           nextLabel={<AiFillRightCircle className={styles.paginationIcons} />}
         />
         ;

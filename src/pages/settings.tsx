@@ -1,9 +1,11 @@
 import Navbar from "@/components/Navbar";
 
 const Settings = () => {
-  return <>
-    <Navbar />
-  </>;
+  return (
+    <>
+      <Navbar />
+    </>
+  );
 };
 
 export default Settings;

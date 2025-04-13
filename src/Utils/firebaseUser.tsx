@@ -39,7 +39,7 @@ export const signupUserManual = async ({ username, email, password }: any) => {
         const userCred = await createUserWithEmailAndPassword(
           auth,
           email,
-          password
+          password,
         );
         const user = userCred.user;
         const colRef = doc(db, "users", user.uid);

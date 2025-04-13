@@ -9,12 +9,19 @@
 //   --primary-4:white;
 // }
 
+:root {
+  /* Add RGB variables for alpha operations */
+  --primary-1-rgb: 20, 20, 20; /* Adjust based on your primary-1 color */
+  --primary-2-rgb: 80, 80, 80; /* Adjust based on your primary-2 color */
+  --primary-3-rgb: 120, 120, 120; /* Adjust based on your primary-3 color */
+}
+
 @media (prefers-color-scheme: dark) {
   :root {
     --ascent-color: gold;
     --bg-color: rgb(27, 25, 25);
     --bg-gradient: rgba(49, 47, 47, 0.8);
-    --primary-1: black;
+    --primary-1: rgb(20, 20, 20);
     --primary-2: rgb(87, 107, 135);
     --primary-3: rgb(164, 179, 201);
     --primary-4: white;

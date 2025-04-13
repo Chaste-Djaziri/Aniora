@@ -20,52 +20,52 @@ export default function App({ Component, pageProps }: any) {
   // NProgress.configure({
   //   template: '<div class="bar" role="bar"><div class="peg"></div></div>'
   // });
-  useEffect(() => {
-    Router.events.on("routeChangeStart", (url) => {
-      setIsLoading(true);
-      NProgress.start();
-    });
+  // useEffect(() => {
+  //   Router.events.on("routeChangeStart", (url) => {
+  //     setIsLoading(true);
+  //     NProgress.start();
+  //   });
 
-    Router.events.on("routeChangeComplete", (url) => {
-      setIsLoading(false);
-      NProgress.done(false);
-    });
+  //   Router.events.on("routeChangeComplete", (url) => {
+  //     setIsLoading(false);
+  //     NProgress.done(false);
+  //   });
 
-    Router.events.on("routeChangeError", (url) => {
-      setIsLoading(false);
-    });
-  }, [Router]);
+  //   Router.events.on("routeChangeError", (url) => {
+  //     setIsLoading(false);
+  //   });
+  // }, [Router]);
 
-  useEffect(() => {
-    // Disable context menu
-    const disableContextMenu = (event: MouseEvent) => {
-      event.preventDefault();
-      toast.info("Context Menu has been disabled");
-    };
+  // useEffect(() => {
+  //   // Disable context menu
+  //   const disableContextMenu = (event: MouseEvent) => {
+  //     event.preventDefault();
+  //     toast.info("Context Menu has been disabled");
+  //   };
 
-    // Disable DevTools shortcut (CTRL+SHIFT+I)
-    const disableDevToolsShortcut = (event: KeyboardEvent) => {
-      if (
-        (event.ctrlKey && event.shiftKey && event.key === "I") || // CTRL+SHIFT+I
-        (event.ctrlKey && event.shiftKey && event.key === "J") || // CTRL+SHIFT+J
-        (event.ctrlKey && event.shiftKey && event.key === "C") || // CTRL+SHIFT+C
-        event.key === "F12" // F12
-      ) {
-        event.preventDefault();
-        toast.info("Dev Tools has been disabled");
-      }
-    };
+  //   // Disable DevTools shortcut (CTRL+SHIFT+I)
+  //   const disableDevToolsShortcut = (event: KeyboardEvent) => {
+  //     if (
+  //       (event.ctrlKey && event.shiftKey && event.key === "I") || // CTRL+SHIFT+I
+  //       (event.ctrlKey && event.shiftKey && event.key === "J") || // CTRL+SHIFT+J
+  //       (event.ctrlKey && event.shiftKey && event.key === "C") || // CTRL+SHIFT+C
+  //       event.key === "F12" // F12
+  //     ) {
+  //       event.preventDefault();
+  //       toast.info("Dev Tools has been disabled");
+  //     }
+  //   };
 
-    // Add event listeners
-    window.addEventListener("contextmenu", disableContextMenu);
-    window.addEventListener("keydown", disableDevToolsShortcut);
+  //   // Add event listeners
+  //   window.addEventListener("contextmenu", disableContextMenu);
+  //   window.addEventListener("keydown", disableDevToolsShortcut);
 
-    // Cleanup event listeners on unmount
-    return () => {
-      window.removeEventListener("contextmenu", disableContextMenu);
-      window.removeEventListener("keydown", disableDevToolsShortcut);
-    };
-  }, []);
+  //   // Cleanup event listeners on unmount
+  //   return () => {
+  //     window.removeEventListener("contextmenu", disableContextMenu);
+  //     window.removeEventListener("keydown", disableDevToolsShortcut);
+  //   };
+  // }, []);
 
   return (
     <>
@@ -114,10 +114,10 @@ export default function App({ Component, pageProps }: any) {
         <Component {...pageProps} />
       </Layout>
       <GoogleAnalytics gaId={GTag} />
-      <Script
+      {/* <Script
         disable-devtool-auto
         src="https://cdn.jsdelivr.net/npm/disable-devtool"
-      />
+      /> */}
     </>
   );
 }

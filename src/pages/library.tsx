@@ -169,7 +169,10 @@ const Library = () => {
                       data-tooltip-id="tooltip"
                       data-tooltip-content="Remove from Watchlist"
                       onClick={() =>
-                        handleWatchlistremove({ type: subCategory, id: ele?.id })
+                        handleWatchlistremove({
+                          type: subCategory,
+                          id: ele?.id,
+                        })
                       }
                     />
                   </div>
