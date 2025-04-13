@@ -55,16 +55,19 @@ const CategorywisePage = ({ categoryDiv, categoryPage = null }: any) => {
           data = await axiosFetch({
             requestID:
               categoryType === "tv" ? "withKeywordsTv" : "withKeywordsMovie",
-            sortBy:
-              category === "latest"
-                ? categoryType === "tv"
+            sortBy: (() => {
+              if (category === "latest") {
+                return categoryType === "tv"
                   ? "first_air_date.desc"
-                  : "primary_release_date.desc"
-                : undefined || category === "trending"
-                  ? "popularity.desc"
-                  : undefined || category === "topRated"
-                    ? "vote_count.desc"
-                    : undefined,
+                  : "primary_release_date.desc";
+              } else if (category === "trending") {
+                return "popularity.desc";
+              } else if (category === "topRated") {
+                return "vote_count.desc";
+              } else {
+                return undefined;
+              }
+            })(),
             genreKeywords: "210024,",
             page: currentPage,
           });
@@ -72,16 +75,19 @@ const CategorywisePage = ({ categoryDiv, categoryPage = null }: any) => {
           data = await axiosFetch({
             requestID:
               categoryType === "tv" ? "withKeywordsTv" : "withKeywordsMovie",
-            sortBy:
-              category === "latest"
-                ? categoryType === "tv"
+            sortBy: (() => {
+              if (category === "latest") {
+                return categoryType === "tv"
                   ? "first_air_date.desc"
-                  : "primary_release_date.desc"
-                : undefined || category === "trending"
-                  ? "popularity.desc"
-                  : undefined || category === "topRated"
-                    ? "vote_count.desc"
-                    : undefined,
+                  : "primary_release_date.desc";
+              } else if (category === "trending") {
+                return "popularity.desc";
+              } else if (category === "topRated") {
+                return "vote_count.desc";
+              } else {
+                return undefined;
+              }
+            })(),
             genreKeywords: ",",
             page: currentPage,
           });
@@ -89,16 +95,19 @@ const CategorywisePage = ({ categoryDiv, categoryPage = null }: any) => {
           data = await axiosFetch({
             requestID:
               categoryType === "tv" ? "withKeywordsTv" : "withKeywordsMovie",
-            sortBy:
-              category === "latest"
-                ? categoryType === "tv"
+            sortBy: (() => {
+              if (category === "latest") {
+                return categoryType === "tv"
                   ? "first_air_date.desc"
-                  : "primary_release_date.desc"
-                : undefined || category === "trending"
-                  ? "popularity.desc"
-                  : undefined || category === "topRated"
-                    ? "vote_count.desc"
-                    : undefined,
+                  : "primary_release_date.desc";
+              } else if (category === "trending") {
+                return "popularity.desc";
+              } else if (category === "topRated") {
+                return "vote_count.desc";
+              } else {
+                return undefined;
+              }
+            })(),
             genreKeywords: ",",
             country: "KR",
             page: currentPage,
