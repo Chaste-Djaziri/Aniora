@@ -165,7 +165,7 @@ export default function App({ Component, pageProps }: any) {
         <meta name="rating" content="general" />
         <meta name="robots" content="index, follow" />
         <meta name="revisit-after" content="7 days" />
-        <meta http-equiv="content-language" content="en-us" />
+        <meta httpEquiv="content-language" content="en-us" />
       </Head>
       <Layout>
         <Analytics />
