@@ -11,6 +11,8 @@ import WatchDetails from "@/components/WatchDetails";
 import Player from "@/components/Artplayer";
 import Head from "next/head";
 
+//start
+
 const Watch = () => {
   const params = useSearchParams();
   const { back, push } = useRouter();
