@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useMemo } from "react";
 import { useSearchParams } from "next/navigation";
 import styles from "@/styles/Detail.module.scss";
 import MetaDetails from "@/components/MetaDetails";
@@ -22,7 +22,7 @@ import { navigatorShare } from "@/Utils/share";
 import { onAuthStateChanged } from "firebase/auth";
 import { auth } from "@/Utils/firebase";
 import { toast } from "sonner";
-import Head from "next/head";
+import SeoHead from "@/components/SeoHead";
 import Navbar from "@/components/Navbar";
 
 const DetailPage = () => {
@@ -127,19 +127,97 @@ const DetailPage = () => {
     navigatorShare({ text: data.title, url: url });
   };
 
+  const baseImageUrl = process.env.NEXT_PUBLIC_TMBD_IMAGE_URL;
+  const mediaTitle =
+    data?.title || data?.name || data?.original_title || data?.original_name;
+  const overview = data?.overview?.trim();
+  const description = overview
+    ? `${overview.slice(0, 155)}${overview.length > 155 ? "…" : ""}`
+    : `Stream ${mediaTitle || "this title"} on Aniora with instant access to episodes, trailers, and collections.`;
+  const posterImage =
+    data?.poster_path && baseImageUrl
+      ? `${baseImageUrl}${data.poster_path}`
+      : data?.backdrop_path && baseImageUrl
+        ? `${baseImageUrl}${data.backdrop_path}`
+        : undefined;
+  const releaseDate = data?.release_date || data?.first_air_date || undefined;
+  const canonicalPath = id
+    ? `/detail?type=${type}&id=${id}${type === "tv" && season && episode ? `&season=${season}&episode=${episode}` : ""}`
+    : "/detail";
+  const detailKeywords = [
+    mediaTitle,
+    type === "movie" ? "movie info" : "tv show info",
+    type === "movie" ? "stream movie" : "stream tv show",
+    ...(Array.isArray(data?.genres)
+      ? data.genres.map((genre: any) => `${genre?.name} ${type}`)
+      : []),
+  ].filter(Boolean) as string[];
+  const structuredData = useMemo(() => {
+    if (!data?.id) return undefined;
+    const isMovie = type === "movie";
+    const schema: any = {
+      "@context": "https://schema.org",
+      "@type": isMovie ? "Movie" : type === "tv" ? "TVSeries" : "CreativeWork",
+      name: mediaTitle,
+      description: overview,
+      image: posterImage,
+      datePublished: releaseDate,
+      aggregateRating:
+        data?.vote_average && data?.vote_count
+          ? {
+              "@type": "AggregateRating",
+              ratingValue: data.vote_average,
+              ratingCount: data.vote_count,
+            }
+          : undefined,
+      genre: Array.isArray(data?.genres)
+        ? data.genres.map((genre: any) => genre?.name).filter(Boolean)
+        : undefined,
+      trailer: trailer?.key
+        ? {
+            "@type": "VideoObject",
+            name: trailer?.name || `${mediaTitle} Trailer`,
+            embedUrl: `https://www.youtube.com/embed/${trailer?.key}`,
+          }
+        : undefined,
+    };
+    if (schema["@type"] === "TVSeries") {
+      schema.numberOfSeasons = data?.number_of_seasons;
+      schema.numberOfEpisodes = data?.number_of_episodes;
+    }
+    return schema;
+  }, [
+    data?.id,
+    type,
+    mediaTitle,
+    overview,
+    posterImage,
+    releaseDate,
+    data?.vote_average,
+    data?.vote_count,
+    data?.genres,
+    data?.number_of_seasons,
+    data?.number_of_episodes,
+    trailer?.key,
+    trailer?.name,
+  ]);
+
   return (
-    // carousel
-    // detail
     <>
+      <SeoHead
+        title={mediaTitle || "Title Detail"}
+        description={description}
+        canonicalPath={canonicalPath}
+        image={posterImage}
+        type={type === "movie" ? "video.movie" : "article"}
+        structuredData={structuredData}
+        publishedTime={releaseDate}
+        modifiedTime={
+          type === "tv" ? data?.last_air_date || undefined : undefined
+        }
+        keywords={detailKeywords}
+      />
       <Navbar />
-      <Head>
-        <title>
-          Aniora | Detail{" "}
-          {id !== undefined && id !== null
-            ? `| ${data?.name || data?.title || id}`
-            : null}
-        </title>
-      </Head>
       <div className={styles.DetailPage}>
         <div className={styles.biggerPic}>
           {

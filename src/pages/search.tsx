@@ -7,6 +7,7 @@ import MovieCardLarge from "@/components/MovieCardLarge";
 import Skeleton from "react-loading-skeleton";
 import NProgress from "nprogress";
 import Navbar from "@/components/Navbar";
+import SeoHead from "@/components/SeoHead";
 // import MoviePoster from '@/components/MoviePoster';
 
 const dummyList = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
@@ -108,62 +109,62 @@ const SearchPage = ({ categoryType }: any) => {
   }, [query]);
 
   return (
-    <div>
-      <Navbar />
-      <div className={styles.MoviePage}>
-        {/* <h1>Search</h1> */}
-        <div className={styles.InputWrapper}>
-          <input
-            ref={searchBar}
-            type="text"
-            className={styles.searchInput}
-            value={query}
-            onChange={(e) => setQuery(e.target.value)}
-            placeholder="Please enter at least 2 characters to search..."
-            onFocus={() => setIsSearchBarFocused(true)}
-            onBlur={() => setIsSearchBarFocused(false)}
-            // data-tooltip-id="tooltip"
-            // data-tooltip-html={"<div>focus :  <span class='tooltip-btn'>/</span></div><div>unfocus :  <span class='tooltip-btn'>Esc</span></div>"}
-          />
-          <div className={styles.inputShortcut}>
-            {!isSearchBarFocused ? (
-              <span className="tooltip-btn">/</span>
-            ) : (
-              <span className="tooltip-btn">Esc</span>
-            )}
+    <>
+      <SeoHead
+        title="Search"
+        canonicalPath="/search"
+        description="Search the Aniora streaming library for movies, TV shows, anime, k-drama, and curated collections."
+        keywords={[
+          "search movies",
+          "search tv shows",
+          "find anime",
+          "discover films",
+          "movie database",
+          "tv guide",
+          "streaming search",
+          "content lookup",
+        ]}
+        noIndex
+      />
+      <div>
+        <Navbar />
+        <div className={styles.MoviePage}>
+          {/* <h1>Search</h1> */}
+          <div className={styles.InputWrapper}>
+            <input
+              ref={searchBar}
+              type="text"
+              className={styles.searchInput}
+              value={query}
+              onChange={(e) => setQuery(e.target.value)}
+              placeholder="Please enter at least 2 characters to search..."
+              onFocus={() => setIsSearchBarFocused(true)}
+              onBlur={() => setIsSearchBarFocused(false)}
+              // data-tooltip-id="tooltip"
+              // data-tooltip-html={"<div>focus :  <span class='tooltip-btn'>/</span></div><div>unfocus :  <span class='tooltip-btn'>Esc</span></div>"}
+            />
+            <div className={styles.inputShortcut}>
+              {!isSearchBarFocused ? (
+                <span className="tooltip-btn">/</span>
+              ) : (
+                <span className="tooltip-btn">Esc</span>
+              )}
+            </div>
           </div>
-        </div>
-        {query.length > 2 ? (
-          <h1>
-            showing result for{" "}
-            <span className={styles.serachQuery}>{query}</span>
-          </h1>
-        ) : (
-          <h1>
-            Top Searches <span className={styles.serachQuery}>today</span>
-          </h1>
-        )}
-        <div className={styles.movieList}>
-          {genreListMovie?.length > 0 &&
-            genreListTv?.length > 0 &&
-            data.map((ele: any) => {
-              return (
-                <MovieCardLarge
-                  data={ele}
-                  media_type={categoryType}
-                  genresMovie={genreListMovie}
-                  genresTv={genreListTv}
-                />
-              );
-            })}
-          {query.length > 2 && data?.length === 0 ? (
-            <h1>No Data Found</h1>
-          ) : null}
-          {query.length > 2 && data === undefined
-            ? dummyList.map((ele) => <Skeleton className={styles.loading} />)
-            : null}
-          {genreListMovie?.length === 0 || genreListTv?.length === 0
-            ? dummyList.map((ele: any) => {
+          {query.length > 2 ? (
+            <h1>
+              showing result for{" "}
+              <span className={styles.serachQuery}>{query}</span>
+            </h1>
+          ) : (
+            <h1>
+              Top Searches <span className={styles.serachQuery}>today</span>
+            </h1>
+          )}
+          <div className={styles.movieList}>
+            {genreListMovie?.length > 0 &&
+              genreListTv?.length > 0 &&
+              data.map((ele: any) => {
                 return (
                   <MovieCardLarge
                     data={ele}
@@ -172,32 +173,49 @@ const SearchPage = ({ categoryType }: any) => {
                     genresTv={genreListTv}
                   />
                 );
-              })
-            : null}
-        </div>
-        <ReactPaginate
-          containerClassName={styles.pagination}
-          pageClassName={styles.page_item}
-          activeClassName={styles.paginateActive}
-          onPageChange={(event) => {
-            setCurrentPage(event.selected + 1);
-            console.log({ event });
-            if (currentPage > totalpages) {
-              setCurrentPage(totalpages);
+              })}
+            {query.length > 2 && data?.length === 0 ? (
+              <h1>No Data Found</h1>
+            ) : null}
+            {query.length > 2 && data === undefined
+              ? dummyList.map((ele) => <Skeleton className={styles.loading} />)
+              : null}
+            {genreListMovie?.length === 0 || genreListTv?.length === 0
+              ? dummyList.map((ele: any) => {
+                  return (
+                    <MovieCardLarge
+                      data={ele}
+                      media_type={categoryType}
+                      genresMovie={genreListMovie}
+                      genresTv={genreListTv}
+                    />
+                  );
+                })
+              : null}
+          </div>
+          <ReactPaginate
+            containerClassName={styles.pagination}
+            pageClassName={styles.page_item}
+            activeClassName={styles.paginateActive}
+            onPageChange={(event) => {
+              setCurrentPage(event.selected + 1);
+              console.log({ event });
+              if (currentPage > totalpages) {
+                setCurrentPage(totalpages);
+              }
+              window.scrollTo(0, 0);
+            }}
+            forcePage={currentPage - 1}
+            pageCount={totalpages}
+            breakLabel=" ... "
+            previousLabel={
+              <AiFillLeftCircle className={styles.paginationIcons} />
             }
-            window.scrollTo(0, 0);
-          }}
-          forcePage={currentPage - 1}
-          pageCount={totalpages}
-          breakLabel=" ... "
-          previousLabel={
-            <AiFillLeftCircle className={styles.paginationIcons} />
-          }
-          nextLabel={<AiFillRightCircle className={styles.paginationIcons} />}
-        />
-        ;
+            nextLabel={<AiFillRightCircle className={styles.paginationIcons} />}
+          />
+        </div>
       </div>
-    </div>
+    </>
   );
 };
 

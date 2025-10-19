@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef, useMemo } from "react";
 import { useSearchParams, useRouter } from "next/navigation";
 import styles from "@/styles/Watch.module.scss";
 import { setContinueWatching } from "@/Utils/continueWatching";
@@ -9,7 +9,7 @@ import { BsHddStack, BsHddStackFill } from "react-icons/bs";
 import axiosFetch from "@/Utils/fetchBackend";
 import WatchDetails from "@/components/WatchDetails";
 import Player from "@/components/Artplayer";
-import Head from "next/head";
+import SeoHead from "@/components/SeoHead";
 
 //start
 
@@ -325,19 +325,78 @@ const Watch = () => {
   const STREAM_URL_POR = process.env.NEXT_PUBLIC_STREAM_URL_POR;
   const STREAM_URL_WEB = process.env.NEXT_PUBLIC_STREAM_URL_WEB;
 
+  const mediaTitle =
+    data?.title ||
+    data?.name ||
+    data?.original_title ||
+    data?.original_name ||
+    id ||
+    "Watch";
+  const baseImageUrl = process.env.NEXT_PUBLIC_TMBD_IMAGE_URL;
+  const posterImage =
+    data?.poster_path && baseImageUrl
+      ? `${baseImageUrl}${data.poster_path}`
+      : data?.backdrop_path && baseImageUrl
+        ? `${baseImageUrl}${data.backdrop_path}`
+        : undefined;
+  const canonicalPath = id
+    ? `/watch?type=${type || "movie"}&id=${id}${type === "tv" && season && episode ? `&season=${season}&episode=${episode}` : ""}`
+    : "/watch";
+  const watchDescription =
+    type === "tv"
+      ? `Stream ${mediaTitle} season ${season || "1"}, episode ${episode || "1"} instantly on Aniora's Rivestream player.`
+      : `Watch ${mediaTitle} online in HD using Aniora's Rivestream provider options.`;
+  const watchKeywords = [
+    mediaTitle,
+    type === "movie" ? "watch movie online" : "watch tv episode online",
+    type === "movie" ? "stream film" : "stream episode",
+    type === "tv" && season && episode
+      ? `season ${season} episode ${episode}`
+      : undefined,
+    source,
+    "rivestream embed",
+    "torrent stream",
+    "aggregator stream",
+  ].filter(Boolean) as string[];
+  const structuredData = useMemo(() => {
+    if (!id) return undefined;
+    if (type === "tv") {
+      return {
+        "@context": "https://schema.org",
+        "@type": "Episode",
+        name: `${mediaTitle} - S${season}E${episode}`,
+        partOfSeries: {
+          "@type": "TVSeries",
+          name: mediaTitle,
+        },
+        description: watchDescription,
+        image: posterImage,
+      };
+    }
+    return {
+      "@context": "https://schema.org",
+      "@type": "Movie",
+      name: mediaTitle,
+      description: watchDescription,
+      image: posterImage,
+    };
+  }, [id, type, mediaTitle, season, episode, watchDescription, posterImage]);
+
   return (
     <>
-      <Head>
-        <title>
-          Aniora | Watch{" "}
-          {id !== undefined && id !== null
-            ? `| ${data?.name || data?.title || id}`
-            : null}{" "}
-          {season !== null && season !== undefined
-            ? `| S${season}-E${episode}`
-            : null}
-        </title>
-      </Head>
+      <SeoHead
+        title={
+          type === "tv"
+            ? `${mediaTitle} – S${season || "1"}E${episode || "1"}`
+            : mediaTitle || "Watch"
+        }
+        description={watchDescription}
+        canonicalPath={canonicalPath}
+        image={posterImage}
+        type={type === "movie" ? "video.movie" : "video.episode"}
+        keywords={watchKeywords}
+        structuredData={structuredData}
+      />
       <div className={styles.watch}>
         <div onClick={() => back()} className={styles.backBtn}>
           <IoReturnDownBack

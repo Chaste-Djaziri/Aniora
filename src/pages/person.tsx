@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useMemo } from "react";
 import { useSearchParams } from "next/navigation";
 import styles from "@/styles/Detail.module.scss";
 import MetaDetails from "@/components/MetaDetails";
@@ -10,7 +10,7 @@ import Link from "next/link";
 import { BsShare } from "react-icons/bs";
 import { CgWebsite } from "react-icons/cg";
 import { navigatorShare } from "@/Utils/share";
-import Head from "next/head";
+import SeoHead from "@/components/SeoHead";
 
 const PersonPage = () => {
   const params = useSearchParams();
@@ -57,18 +57,67 @@ const PersonPage = () => {
     navigatorShare({ text: data?.name, url: url });
   };
 
+  const pageTitle =
+    data?.name && data?.name !== "" ? data.name : "Person Profile";
+  const baseImageUrl = process.env.NEXT_PUBLIC_TMBD_IMAGE_URL;
+  const profileImage =
+    data?.profile_path && baseImageUrl
+      ? `${baseImageUrl}${data.profile_path}`
+      : undefined;
+  const biography = data?.biography?.trim();
+  const description =
+    biography && biography.length > 0
+      ? `${biography.slice(0, 155)}${biography.length > 155 ? "…" : ""}`
+      : `Explore ${pageTitle}'s filmography, biography, and credits on Aniora.`;
+  const canonicalPath = id ? `/person?id=${id}` : "/person";
+  const keywords = [
+    data?.name,
+    "actor profile",
+    "actress profile",
+    "celebrity biography",
+    "movie credits",
+    "tv cast",
+    "filmography",
+  ].filter(Boolean) as string[];
+  const structuredData = useMemo(() => {
+    if (!data?.id) return undefined;
+    return {
+      "@context": "https://schema.org",
+      "@type": "Person",
+      name: data?.name,
+      description: biography,
+      image: profileImage,
+      birthDate: data?.birthday || undefined,
+      url: canonicalPath,
+      sameAs: [
+        data?.homepage || undefined,
+        data?.imdb_id
+          ? `https://www.imdb.com/name/${data?.imdb_id}`
+          : undefined,
+      ].filter(Boolean),
+    };
+  }, [
+    data?.id,
+    data?.name,
+    biography,
+    profileImage,
+    data?.birthday,
+    data?.homepage,
+    data?.imdb_id,
+    canonicalPath,
+  ]);
+
   return (
-    // carousel
-    // detail
     <>
-      <Head>
-        <title>
-          Aniora | Person{" "}
-          {id !== undefined && id !== null
-            ? `| ${data?.name || data?.title || id}`
-            : null}
-        </title>
-      </Head>
+      <SeoHead
+        title={pageTitle}
+        description={description}
+        canonicalPath={canonicalPath}
+        image={profileImage}
+        type="profile"
+        keywords={keywords}
+        structuredData={structuredData}
+      />
       <div className={`${styles.DetailPage} ${styles.PersonPage}`}>
         <div className={`${styles.biggerPic} ${styles.detailBiggerPic}`}>
           {images.length > 0 ? (

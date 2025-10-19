@@ -10,6 +10,7 @@ import { AiFillLeftCircle, AiFillRightCircle } from "react-icons/ai";
 import CollectionIDs from "@/assets/collection_ids.json";
 import { toast } from "sonner";
 import Navbar from "@/components/Navbar";
+import SeoHead from "@/components/SeoHead";
 // import MoviePoster from '@/components/MoviePoster';
 
 const dummyList = [
@@ -139,100 +140,117 @@ const Collections = ({ categoryType }: any) => {
   }, [searchQuery, currentPage]);
 
   return (
-    <div>
-      <Navbar />
-      <div className={styles.MoviePage}>
-        {/* <h1>Collections</h1> */}
-        <div className={styles.InputWrapper}>
-          <input
-            ref={searchBar}
-            type="text"
-            className={styles.searchInput}
-            value={searchQuery}
-            onChange={(e) => setSearchQuery(e.target.value)}
-            placeholder="Please enter at least 2 characters to search collections...."
-            onFocus={() => setIsSearchBarFocused(true)}
-            onBlur={() => setIsSearchBarFocused(false)}
-            // data-tooltip-id="tooltip"
-            // data-tooltip-html={"<div>focus :  <span class='tooltip-btn'>/</span></div><div>unfocus :  <span class='tooltip-btn'>Esc</span></div>"}
-          />
-          <div className={styles.inputShortcut}>
-            {!isSearchBarFocused ? (
-              <span className="tooltip-btn">/</span>
-            ) : (
-              <span className="tooltip-btn">Esc</span>
-            )}
+    <>
+      <SeoHead
+        title="Collections"
+        canonicalPath="/collections"
+        description="Browse curated movie and TV collections on Aniora, from cinematic universes and trilogies to genre playlists and fan favourites."
+        keywords={[
+          "movie collections",
+          "film franchises",
+          "cinematic universe",
+          "trilogy marathon",
+          "saga streaming",
+          "playlist of movies",
+          "collection search",
+          "anthology streaming",
+        ]}
+      />
+      <div>
+        <Navbar />
+        <div className={styles.MoviePage}>
+          {/* <h1>Collections</h1> */}
+          <div className={styles.InputWrapper}>
+            <input
+              ref={searchBar}
+              type="text"
+              className={styles.searchInput}
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+              placeholder="Please enter at least 2 characters to search collections...."
+              onFocus={() => setIsSearchBarFocused(true)}
+              onBlur={() => setIsSearchBarFocused(false)}
+              // data-tooltip-id="tooltip"
+              // data-tooltip-html={"<div>focus :  <span class='tooltip-btn'>/</span></div><div>unfocus :  <span class='tooltip-btn'>Esc</span></div>"}
+            />
+            <div className={styles.inputShortcut}>
+              {!isSearchBarFocused ? (
+                <span className="tooltip-btn">/</span>
+              ) : (
+                <span className="tooltip-btn">Esc</span>
+              )}
+            </div>
           </div>
-        </div>
-        {searchQuery?.length > 2 ? (
-          <h1>
-            showing collections for{" "}
-            <span className={styles.serachQuery}>{searchQuery}</span>
-          </h1>
-        ) : (
-          <h1>
-            All Collections <span className={styles.serachQuery}></span>
-          </h1>
-        )}
-        <div className={styles.movieList}>
-          {data.map((ele: any) => {
-            return <MovieCardSmall data={ele} media_type={"collection"} />;
-          })}
-          {searchQuery?.length > 2 && data?.length === 0 ? (
-            <h1>No Data Found</h1>
-          ) : null}
-          {(searchQuery === null || searchQuery === "") &&
-            data?.length === 0 &&
-            dummyList.map((ele) => <Skeleton className={styles.loading} />)}
-          {/* {data?.total_results === 0 &&
+          {searchQuery?.length > 2 ? (
+            <h1>
+              showing collections for{" "}
+              <span className={styles.serachQuery}>{searchQuery}</span>
+            </h1>
+          ) : (
+            <h1>
+              All Collections <span className={styles.serachQuery}></span>
+            </h1>
+          )}
+          <div className={styles.movieList}>
+            {data.map((ele: any) => {
+              return <MovieCardSmall data={ele} media_type={"collection"} />;
+            })}
+            {searchQuery?.length > 2 && data?.length === 0 ? (
+              <h1>No Data Found</h1>
+            ) : null}
+            {(searchQuery === null || searchQuery === "") &&
+              data?.length === 0 &&
+              dummyList.map((ele) => <Skeleton className={styles.loading} />)}
+            {/* {data?.total_results === 0 &&
             <h1>No Data Found</h1>} */}
-        </div>
-        <div className={styles.jumpTo}>
-          <h3>Jump to</h3>
-          <input
-            type="number"
-            className={styles.pageInput}
-            value={currentPage}
-            min={"1"}
-            max={totalpages}
-            minLength={1}
-            onChange={(e: any) => {
-              // console.log({ val: e.target.value });
-              if (e.target.value === "") setCurrentPage(e.target.value);
-              else if (e.target.value === "0") {
-                toast.error(`Page number should be greater than 0`);
-              } else if (e.target.value <= totalpages)
-                setCurrentPage(e.target.value);
-              else {
-                toast.error(
-                  `Page number should be less than Total pages: ${totalpages}`,
-                );
+          </div>
+          <div className={styles.jumpTo}>
+            <h3>Jump to</h3>
+            <input
+              type="number"
+              className={styles.pageInput}
+              value={currentPage}
+              min={"1"}
+              max={totalpages}
+              minLength={1}
+              onChange={(e: any) => {
+                // console.log({ val: e.target.value });
+                if (e.target.value === "") setCurrentPage(e.target.value);
+                else if (e.target.value === "0") {
+                  toast.error(`Page number should be greater than 0`);
+                } else if (e.target.value <= totalpages)
+                  setCurrentPage(e.target.value);
+                else {
+                  toast.error(
+                    `Page number should be less than Total pages: ${totalpages}`,
+                  );
+                }
+              }}
+            />
+          </div>
+          <ReactPaginate
+            containerClassName={styles.pagination}
+            pageClassName={styles.page_item}
+            activeClassName={styles.paginateActive}
+            onPageChange={(event) => {
+              setCurrentPage(event.selected + 1);
+              console.log({ event });
+              if (currentPage > totalpages) {
+                setCurrentPage(totalpages);
               }
+              window.scrollTo(0, 0);
             }}
+            forcePage={currentPage - 1}
+            pageCount={totalpages}
+            breakLabel=" ... "
+            previousLabel={
+              <AiFillLeftCircle className={styles.paginationIcons} />
+            }
+            nextLabel={<AiFillRightCircle className={styles.paginationIcons} />}
           />
         </div>
-        <ReactPaginate
-          containerClassName={styles.pagination}
-          pageClassName={styles.page_item}
-          activeClassName={styles.paginateActive}
-          onPageChange={(event) => {
-            setCurrentPage(event.selected + 1);
-            console.log({ event });
-            if (currentPage > totalpages) {
-              setCurrentPage(totalpages);
-            }
-            window.scrollTo(0, 0);
-          }}
-          forcePage={currentPage - 1}
-          pageCount={totalpages}
-          breakLabel=" ... "
-          previousLabel={
-            <AiFillLeftCircle className={styles.paginationIcons} />
-          }
-          nextLabel={<AiFillRightCircle className={styles.paginationIcons} />}
-        />
       </div>
-    </div>
+    </>
   );
 };
 
