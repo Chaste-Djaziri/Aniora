@@ -13,12 +13,16 @@
 //   // next.js config
 // });
 
-import withPWA from "next-pwa";
+import withPWAInit from "next-pwa";
 
-const withPwaConfig = {
+const withPWA = withPWAInit({
   dest: "public",
   register: true,
   skipWaiting: true,
+});
+
+const nextConfig = {
+  reactStrictMode: true,
 };
 
-export default withPWA(withPwaConfig);
+export default withPWA(nextConfig);
