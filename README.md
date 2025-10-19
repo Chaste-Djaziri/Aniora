@@ -81,7 +81,6 @@ Rive is a cutting-edge platform for streaming movies and TV shows online. Our pr
 > 2. **For Movie/TV Shows Download**:
 >
 >    Use video downloader extensions:
->
 >    - On PC: [FetchV](https://fetchv.net/) or [Stream Recorder](https://www.hlsloader.com/)
 >    - On Mobile: [AVDP](https://play.google.com/store/apps/details?id=videoplayer.videodownloader.downloader)
 >
