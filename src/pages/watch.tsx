@@ -181,9 +181,13 @@ const Watch = () => {
         const providers: any = await axiosFetch({
           requestID: `VideoProviderServices`,
         });
-        // console.log({ providers });
+        // ensure RIVE provider is available as a fallback
+        const providerList = Array.isArray(providers?.data)
+          ? [...providers.data]
+          : [];
+        if (!providerList.includes("RIVE")) providerList.push("RIVE");
         setNonEmbedVideoProviders(
-          providers?.data?.map((ele: any) => {
+          providerList.map((ele: any) => {
             return {
               name: ele,
               status: "available",

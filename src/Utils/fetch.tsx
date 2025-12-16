@@ -117,6 +117,42 @@ export default async function axiosFetch({
   const final_request = requests[request];
   // console.log({ final_request });
 
+  // Special-case: support Rive (rivestream.org) as an external provider
+  if (
+    (request === "movieVideoProvider" || request === "tvVideoProvider") &&
+    service === "RIVE"
+  ) {
+    try {
+      const riveUrl =
+        request === "movieVideoProvider"
+          ? `https://rivestream.org/embed?type=movie&id=${id}`
+          : `https://rivestream.org/embed?type=tv&id=${id}&season=${season}&episode=${episode}`;
+      const response = await axios.get(riveUrl, {
+        headers: {
+          // mimic a browser to reduce chance of blocking
+          "User-Agent":
+            "Mozilla/5.0 (compatible; Aniora/1.0; +https://github.com)",
+        },
+      });
+      const html = response?.data || "";
+      // extract possible m3u8 / mp4 links from the embed HTML
+      const m3u8matches =
+        html.match(/https?:\/\/[^"' >]+\.m3u8[^"' >]*/g) || [];
+      const mp4matches = html.match(/https?:\/\/[^"' >]+\.mp4[^"' >]*/g) || [];
+      const all = Array.from(new Set([...m3u8matches, ...mp4matches]));
+      const sources = all.map((u: string) => ({
+        url: u,
+        format: u.includes(".m3u8") ? "hls" : "mp4",
+        quality: "auto",
+        source: "RIVE",
+      }));
+      return { data: { sources, captions: [] } };
+    } catch (error) {
+      console.error("Error fetching Rive provider:", error);
+      return { data: { sources: [], captions: [] } };
+    }
+  }
+
   try {
     const response = await axios.get(final_request, {
       params: { api_key: API_KEY },
@@ -124,7 +160,5 @@ export default async function axiosFetch({
     return await response?.data; // Return the resolved data from the response
   } catch (error) {
     console.error("Error fetching data:", error);
-    // Handle errors appropriately (e.g., throw a custom error or return null)
-    // throw new Error("Failed to fetch data"); // Example error handling
   }
 }
