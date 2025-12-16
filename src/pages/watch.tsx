@@ -35,7 +35,9 @@ const Watch = () => {
   const [nonEmbedSourcesIndex, setNonEmbedSourcesIndex] = useState<any>("");
   const [nonEmbedSources, setNonEmbedSources] = useState<any>("");
   const [nonEmbedCaptions, setnonEmbedCaptions] = useState<any>([]);
-  const [nonEmbedVideoProviders, setNonEmbedVideoProviders] = useState([]);
+  const [nonEmbedVideoProviders, setNonEmbedVideoProviders] = useState<any[]>(
+    [],
+  );
   const [nonEmbedSourcesNotFound, setNonEmbedSourcesNotFound] =
     useState<any>(false);
   // const [nonEmbedFormat, setnonEmbedFormat] = useState<any>();
